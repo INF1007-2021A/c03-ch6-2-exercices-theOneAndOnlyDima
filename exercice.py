@@ -5,27 +5,50 @@ from matplotlib.colors import cnames
 
 
 def list_to_dict(some_list: list) -> dict:
+    some_dict = {}
+    for element in some_list:
+        some_dict[element] = some_list.index(element)
     # TODO: Transformer la liste en dictionnaire, les éléments de la liste deviennent les clés et leur index deviennent les valeurs
 
-    return {}
+    return some_dict
+    # return {value : index for index, value in enumerate(some_list)}
 
 
 def color_name_to_hex(colors: list) -> list:
+    color_list = []
+    for color in colors:
+        color_tuple = (color, cnames.get(color))
+        color_list.append(color_tuple)
     # TODO: Trouver la valeur hex de chaque couleur dans la liste et créer une liste de tupple où le premier élément est le nom de la couleur et le deuxième est la valeur hex
 
-    return []
+    return color_list
+    # return [(color, cnames[color]) for color in colors]
 
 
 def create_list() -> list:
+    fuckton_of_numbers = []
+    n = 0
+    while len(fuckton_of_numbers) <= 10000:
+        if n < 15 or n > 350:
+            fuckton_of_numbers.append(n)
+        n += 1
     # TODO: Créer une liste des 10 000 premiers entiers positif, sauf pour les entiers de 15 à 350
 
-    return []
+    return fuckton_of_numbers
+    # return [i for i in range(10000) if not(15 <= i <= 350)]
 
 
 def compute_mse(model_dict: dict) -> dict:
+    mse_dict = {}
+    for model in model_dict:
+        mse = 0
+        for i in range(len(model_dict[model])):
+            mse += (model_dict[model][i][0] - model_dict[model][i][1]) ** 2
+        mse_dict[model] = round((1 / len(model_dict[model])) * mse, 1)
     # TODO: Calculer l'erreur quadratique moyen pour chaque modèle. Retourner un dictionnaire contenant les MSE.
 
-    return {}
+    return mse_dict
+    # return {model: sum([(y - y_pred)**2 for y, y_pred in results]) / len(results) for model, results in model_dict.items()}
 
 
 def main() -> None:
